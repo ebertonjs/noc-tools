@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;" />
+
+  <title>NOC Tools v0.3.7 - Ferramentas de Suporte</title>
+
+  <!-- Preconnect para otimizar carregamento de fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body class="theme-eco">
+  <div class="main-container">
+    <!-- Sidebar com atributos ARIA -->
+    <aside class="sidebar" role="navigation" aria-label="Menu de ferramentas">
+      <div class="sidebar-header">
+        <h3>NOC Tools</h3>
+        <button id="toggleSidebarButton" title="Recolher barra lateral" tabindex="0"
+          aria-label="Recolher ou expandir barra lateral" aria-expanded="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-panel-left" aria-hidden="true">
+            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+            <line x1="9" x2="9" y1="3" y2="21" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="tabs-vertical" role="tablist" aria-label="Ferramentas disponíveis">
+        <button class="tab-button active" data-tab="hubsoft-tab" role="tab" aria-selected="true"
+          aria-controls="hubsoft-tab" tabindex="0" title="Scanner HubSoft">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+            <path d="M4 3h16v2H4z"></path>
+          </svg>
+          <span class="tab-label">Relatório HubSoft</span>
+        </button>
+        <button class="tab-button" data-tab="olt-tab" role="tab" aria-selected="false" aria-controls="olt-tab"
+          tabindex="-1" title="Análise de OLT">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-bar-chart-2" aria-hidden="true">
+            <line x1="18" x2="18" y1="20" y2="10" />
+            <line x1="12" x2="12" y1="20" y2="4" />
+            <line x1="6" x2="6" y1="20" y2="14" />
+          </svg>
+          <span class="tab-label">Análise de OLT</span>
+        </button>
+
+        <!--
+        <button class="tab-button" data-tab="relatorio-tab" role="tab" aria-selected="false"
+          aria-controls="relatorio-tab" tabindex="-1" title="Gerador de Relatório de Rotas">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-file-text" aria-hidden="true">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+            <polyline points="14 2 14 8 20 8" />
+            <path d="M16 13H8" />
+            <path d="M16 17H8" />
+            <path d="M10 9H8" />
+          </svg>
+          <span class="tab-label">Relatório De Rotas</span>
+          <span id="relatorioStatusDot" aria-hidden="true"
+            style="display:none;width:6px;height:6px;border-radius:50%;background:var(--cor-primaria);margin-left:6px;"></span>
+        </button>
+         -->
+
+        <button class="tab-button" data-tab="alerts-tab" role="tab" aria-selected="false" aria-controls="alerts-tab"
+          tabindex="-1" title="Extrator de Alertas">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-bell" aria-hidden="true">
+            <path
+              d="M6 8a6 6 0 0 1 4.7-7.24A4 4 0 0 1 16 8a4 4 0 0 0 4 4c0 1.5-1.5-3-3-4s-1.5 0-3 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2" />
+          </svg>
+          <span class="tab-label">Extrator de Alertas</span>
+        </button>
+
+        <button class="tab-button" data-tab="tab-reputacao-ip" role="tab" aria-selected="false"
+          aria-controls="tab-reputacao-ip" tabindex="-1" title="Verificador de Reputação IP">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="M12 8v4"></path>
+            <path d="M12 16h.01"></path>
+          </svg>
+          <span class="tab-label">Verificador de IP</span>
+        </button>
+
+
+
+        <button class="tab-button" data-tab="external-alerts-tab" role="tab" aria-selected="false"
+          aria-controls="external-alerts-tab" tabindex="-1" title="Alertas Externos">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-bell" aria-hidden="true">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+          </svg>
+          <span class="tab-label">Alertas Externos</span>
+          <span id="externalAlertsBadge" class="tab-badge" style="display:none;">0</span>
+        </button>
+        </button>
+        <button class="tab-button" data-tab="appearance-tab" role="tab" aria-selected="false"
+          aria-controls="appearance-tab" tabindex="-1" title="Aparência">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+          </svg>
+          <span class="tab-label">Aparência</span>
+
+                  <button class="tab-button" data-tab="settings-tab" role="tab" aria-selected="false" aria-controls="settings-tab"
+          tabindex="-1" title="Configurações">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-settings-2" aria-hidden="true">
+            <circle cx="12" cy="12" r="2" />
+            <path
+              d="M16.2 7.76a4.8 4.8 0 0 0-4.57-2.82c-.89 0-1.78.21-2.58.62a4.83 4.83 0 0 0-3.37 3.37c-.4.8-.62 1.69-.62 2.58s.22 1.78.62 2.58a4.83 4.83 0 0 0 3.37 3.37c.8.4 1.69.62 2.58.62s1.78-.22 2.58-.62a4.83 4.83 0 0 0 3.37-3.37c.4-.8.62-1.69.62-2.58s-.22-1.78-.62-2.58a4.8 4.8 0 0 0-3.37-3.37z" />
+          </svg>
+          <span class="tab-label">Configurações</span>
+        </button>
+          <button class="tab-button" data-tab="logs-tab" role="tab" aria-selected="false" aria-controls="logs-tab"
+            tabindex="-1" title="Changelog">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-file-text" aria-hidden="true">
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+              <polyline points="14 2 14 8 20 8" />
+              <path d="M10 12H8" />
+              <path d="M16 16H8" />
+              <path d="M16 20H8" />
+            </svg>
+            <span class="tab-label">Changelog</span>
+
+          </button>
+
+
+          <div class="sidebar-footer">
+            <div class="creator-info">
+              <span>VERSÃO 0.3.7</span>
+              <span>Por: EDINHO SILVA</span>
+            </div>
+          </div>
+
+    </aside>
+
+
+    <!-- Conteúdo Principal -->
+    <main class="content-area" role="main" aria-live="polite">
+
+      <!-- TEMA) -->
+
+      <section id="appearance-tab" class="tab-content" role="tabpanel" hidden>
+        <header class="tab-header">
+          <h3>Aparência</h3>
+          <p class="tab-description">
+            Personalize o visual da extensão escolhendo temas e modo claro/escuro.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <h4>Temas</h4>
+
+          <!-- Mantém o select (compatibilidade com seu JS), mas escondido -->
+          <select id="themeSelector" aria-label="Selecionar tema visual" class="sr-only" tabindex="-1">
+            <option value="eco">Eco (padrão)</option>
+            <option value="moderno">Moderno</option>
+            <option value="eco-escuro">Eco Escuro</option>
+            <option value="escuro">Escuro</option>
+            <option value="classico">Clássico</option>
+            <option value="hacker">Hacker</option>
+            <option value="blueprint">Blueprint</option>
+            <option value="8bit">8-Bit Nostalgia</option>
+            <option value="zen">Foco Zen</option>
+            <option value="jornal">Jornal Antigo</option>
+            <option value="gemini">Estilo Gemini</option>
+            <option value="neutro">Neutro</option>
+          </select>
+
+          <div class="theme-grid" role="list">
+            <button class="theme-card" type="button" data-theme="eco" role="listitem">
+              <div class="theme-preview theme-preview--eco"></div>
+              <div class="theme-meta">
+                <strong>Eco</strong>
+                <span>Verde e claro (padrão)</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="eco-escuro" role="listitem">
+              <div class="theme-preview theme-preview--eco-escuro"></div>
+              <div class="theme-meta">
+                <strong>Eco Escuro</strong>
+                <span>Verde no modo escuro</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="moderno" role="listitem">
+              <div class="theme-preview theme-preview--moderno"></div>
+              <div class="theme-meta">
+                <strong>Moderno</strong>
+                <span>Limpo e neutro</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="escuro" role="listitem">
+              <div class="theme-preview theme-preview--escuro"></div>
+              <div class="theme-meta">
+                <strong>Escuro</strong>
+                <span>Conforto visual</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="hacker" role="listitem">
+              <div class="theme-preview theme-preview--hacker"></div>
+              <div class="theme-meta">
+                <strong>Hacker</strong>
+                <span>Matrix vibes</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="blueprint" role="listitem">
+              <div class="theme-preview theme-preview--blueprint"></div>
+              <div class="theme-meta">
+                <strong>Blueprint</strong>
+                <span>Planta técnica</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="8bit" role="listitem">
+              <div class="theme-preview theme-preview--8bit"></div>
+              <div class="theme-meta">
+                <strong>8-Bit</strong>
+                <span>Nostalgia</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="zen" role="listitem">
+              <div class="theme-preview theme-preview--zen"></div>
+              <div class="theme-meta">
+                <strong>Zen</strong>
+                <span>Suave e calmo</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="jornal" role="listitem">
+              <div class="theme-preview theme-preview--jornal"></div>
+              <div class="theme-meta">
+                <strong>Jornal</strong>
+                <span>Vintage</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="gemini" role="listitem">
+              <div class="theme-preview theme-preview--gemini"></div>
+              <div class="theme-meta">
+                <strong>Gemini</strong>
+                <span>Arredondado</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="neutro" role="listitem">
+              <div class="theme-preview theme-preview--neutro"></div>
+              <div class="theme-meta">
+                <strong>Neutro</strong>
+                <span>Discreto</span>
+              </div>
+            </button>
+
+            <button class="theme-card" type="button" data-theme="classico" role="listitem">
+              <div class="theme-preview theme-preview--classico"></div>
+              <div class="theme-meta">
+                <strong>Clássico</strong>
+                <span>Corporativo</span>
+              </div>
+            </button>
+          </div>
+
+          <button id="toggleThemeButton">
+            🌗 Alternar Claro / Escuro
+          </button>
+        </article>
+
+      </section>
+
+      <!-- Aba HubSoft -->
+      <section id="hubsoft-tab" class="tab-content active" role="tabpanel" aria-labelledby="hubsoft-tab-title"
+        tabindex="0">
+        <header class="tab-header">
+          <h3 id="hubsoft-tab-title">Relatório HubSoft</h3>
+          <p class="tab-description">
+            Escaneia a página atual do HubSoft, captura todos os chamados e gera um relatório completo
+            com descrições, usuários e organização por categoria.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <button id="openHubsoftScannerButton" aria-label="Abrir relatório HubSoft">
+            🔍 Relatório HubSoft
+          </button>
+
+          <div class="form-group" style="margin-top: 15px;">
+            <p role="note"
+              style="font-size: 0.85em; color: var(--cor-texto-secundario); margin: 10px 0; padding: 12px; background-color: var(--cor-fundo-geral); border-radius: 8px; border-left: 4px solid var(--cor-primaria);">
+              <strong>💡 Como usar:</strong> Clique no botão acima enquanto estiver em uma página do HubSoft.
+              Uma janela flutuante aparecerá com opções para gerar relatório dos chamados dos últimos dias.
+            </p>
+          </div>
+
+        </article>
+      </section>
+      <!-- Aba OLT -->
+      <section id="olt-tab" class="tab-content" role="tabpanel" aria-labelledby="olt-tab-title" tabindex="0" hidden>
+        <header class="tab-header">
+          <h3 id="olt-tab-title">Analisador de Log de OLT</h3>
+          <p class="tab-description">
+            Abre uma janela flutuante na página atual onde você pode colar e analisar logs da OLT.
+            A interface inclui opções de análise completa e filtro por data.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <button id="analyzeOltLogButton" aria-label="Abrir analisador de logs OLT">
+            Abrir Analisador de OLT
+          </button>
+
+          <!-- Elementos ocultos mantidos para compatibilidade -->
+          <div class="form-group" style="display: none;" aria-hidden="true">
+            <label for="oltLogInput">Cole o log da OLT aqui:</label>
+            <textarea id="oltLogInput" rows="8" aria-label="Campo para colar log da OLT"></textarea>
+          </div>
+
+          <div class="filter-section" style="display: none;" aria-hidden="true">
+            <label for="filterOltDate">Filtrar por data específica:</label>
+            <input type="date" id="filterOltDate" aria-label="Selecionar data para filtro" />
+            <button id="filterOltLogButton">Filtrar por Data</button>
+          </div>
+
+          <pre id="oltLogOutput" style="display: none;" aria-live="polite" aria-label="Resultado da análise"></pre>
+          <button id="copyOltLogOutputButton" style="display: none;" aria-label="Copiar resultado da análise">
+            Copiar Resultado
+          </button>
+        </article>
+      </section>
+
+      <!-- Aba Alertas -->
+      <section id="alerts-tab" class="tab-content" role="tabpanel" aria-labelledby="alerts-tab-title" tabindex="0"
+        hidden>
+        <header class="tab-header">
+          <h3 id="alerts-tab-title">Extrator de Alertas da Página</h3>
+          <p class="tab-description">
+            Varre o conteúdo da página web ativa em busca de alertas textuais,
+            agrupando-os de forma inteligente para facilitar a análise e a cópia.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <button id="extractAlertsButton" aria-label="Extrair e agrupar alertas da página">
+            Extrair e Agrupar Alertas
+          </button>
+
+          <div id="alertOutput" class="output-box" role="region" aria-live="polite" aria-label="Alertas extraídos">
+          </div>
+
+          <button id="copyAlertsOutputButton" class="copy-btn" aria-label="Copiar alertas extraídos">
+            Copiar Alertas
+          </button>
+        </article>
+      </section>
+
+      <!-- Aba Reputação IP -->
+      <section id="tab-reputacao-ip" class="tab-content" role="tabpanel" aria-labelledby="reputacao-ip-title"
+        tabindex="0" hidden>
+        <header class="tab-header">
+          <h3 id="reputacao-ip-title">Verificador de Reputação de IP</h3>
+          <p class="tab-description">
+            Abre uma janela flutuante moderna na página atual para analisar IPs com 8 fontes diferentes de verificação.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <div class="form-group">
+            <button id="openIpCheckerButton" aria-label="Abrir verificador de reputação de IP">
+              🔍 Abrir Verificador de IP
+            </button>
+          </div>
+
+          <div class="form-group">
+            <p role="note"
+              style="font-size: 0.85em; color: var(--cor-texto-secundario); margin: 10px 0; padding: 12px; background-color: var(--cor-fundo-geral); border-radius: 8px; border-left: 4px solid var(--cor-primaria);">
+              <strong>💡 Como usar:</strong> Clique no botão acima e uma janela flutuante aparecerá no canto esquerdo da
+              página.
+              Digite o IP que deseja verificar e receba análise completa de 8 fontes diferentes.
+            </p>
+          </div>
+
+          <hr class="section-divider" aria-hidden="true" />
+
+          <h4>Fontes de Verificação</h4>
+          <ul
+            style="font-size: 0.85em; color: var(--cor-texto-secundario); line-height: 1.8; padding-left: 20px; margin-top: 12px;">
+            <li>🤖 <strong>Análise com IA</strong> - Gemini avalia reputação e riscos</li>
+            <li>🌍 <strong>Geolocalização</strong> - País, cidade, provedor e ASN</li>
+            <li>🚨 <strong>Lista de Ameaças</strong> - IPsum blacklist check</li>
+            <li>🛡️ <strong>Spamhaus ZEN</strong> - Verificação DNSBL</li>
+            <li>👥 <strong>AbuseIPDB</strong> - Reputação colaborativa</li>
+            <li>📋 <strong>WHOIS/RDAP</strong> - Informações de registro</li>
+            <li>🔒 <strong>Barracuda BRBL</strong> - Block list check</li>
+          </ul>
+        </article>
+      </section>
+
+      <!-- Aba Monitor (comentada mas estruturada) -->
+      <section id="monitor-tab" class="tab-content" role="tabpanel" aria-labelledby="monitor-tab-title" tabindex="0"
+        hidden>
+        <header class="tab-header">
+          <h3 id="monitor-tab-title">Monitor de Alertas em Abas</h3>
+          <p class="tab-description">
+            Sistema otimizado que monitora suas abas em segundo plano,
+            detectando palavras-chave específicas e enviando notificações
+            visuais quando alertas são encontrados.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <div class="form-group">
+            <div
+              style="background: var(--cor-fundo-geral); padding: 12px; border-radius: var(--raio-borda); border: 1px solid var(--cor-borda); margin-bottom: 15px;">
+              <h4 style="margin: 0 0 8px 0; color: var(--cor-primaria)">Status do Monitor</h4>
+              <div id="monitorStatus" role="status" aria-live="polite"
+                style="font-size: 0.85em; color: var(--cor-texto-secundario)">
+                Inicializando...
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="monitorIntervalSelect">Intervalo de Monitoramento:</label>
+            <select id="monitorIntervalSelect" aria-label="Selecionar intervalo de monitoramento">
+              <option value="5">5 segundos (Máxima precisão)</option>
+              <option value="10">10 segundos (Padrão)</option>
+              <option value="15">15 segundos (Equilibrado)</option>
+              <option value="30">30 segundos (Economia)</option>
+              <option value="60">1 minuto (Mínimo)</option>
+            </select>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="allowRepeatNotificationsCheckbox" aria-label="Permitir notificações repetidas" />
+            <label for="allowRepeatNotificationsCheckbox">Permitir notificações repetidas</label>
+          </div>
+
+          <div class="form-group">
+            <label for="monitorKeywordsTextarea">Palavras-chave a Monitorar (uma por linha):</label>
+            <textarea id="monitorKeywordsTextarea" aria-label="Digite palavras-chave para monitorar"
+              placeholder="Link down&#10;ONU Offline&#10;Porta bloqueada&#10;Timeout&#10;Error 500"></textarea>
+            <small style="color: var(--cor-texto-secundario); font-size: 0.8em">
+              💡 Dica: Use termos específicos para evitar alertas falsos
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="monitorRemindersTextarea">Lembretes Personalizados (uma por linha):</label>
+            <textarea id="monitorRemindersTextarea" aria-label="Digite lembretes personalizados"
+              placeholder="Verificar emails pendentes&#10;Atualizar planilha de chamados&#10;Reportar status para supervisor"></textarea>
+            <small style="color: var(--cor-texto-secundario); font-size: 0.8em">
+              ℹ️ Estes lembretes aparecerão nas notificações de alerta
+            </small>
+          </div>
+
+          <div class="form-group">
+            <div style="border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); overflow: hidden;">
+              <div style="background: var(--cor-fundo-geral); padding: 12px; cursor: pointer; user-select: none;"
+                id="advancedToggle" role="button" tabindex="0" aria-expanded="false" aria-controls="advancedSettings">
+                <h4 style="margin: 0; display: flex; align-items: center; justify-content: space-between;">
+                  ⚙️ Configurações Avançadas
+                  <span id="advancedToggleIcon" aria-hidden="true">▼</span>
+                </h4>
+              </div>
+
+              <div id="advancedSettings" style="padding: 15px; display: none;" role="region"
+                aria-label="Configurações avançadas">
+                <div class="checkbox-group" style="margin-bottom: 15px">
+                  <input type="checkbox" id="enableAdaptiveIntervalCheckbox" checked
+                    aria-label="Ativar intervalo adaptativo" />
+                  <label for="enableAdaptiveIntervalCheckbox">🔋 Intervalo Adaptativo (economia de bateria)</label>
+                </div>
+
+                <div class="checkbox-group" style="margin-bottom: 15px">
+                  <input type="checkbox" id="onlyActiveTabCheckbox" aria-label="Monitorar apenas aba ativa" />
+                  <label for="onlyActiveTabCheckbox">Monitorar apenas aba ativa</label>
+                </div>
+
+                <div class="checkbox-group" style="margin-bottom: 15px">
+                  <input type="checkbox" id="debugModeCheckbox" aria-label="Ativar modo debug" />
+                  <label for="debugModeCheckbox">Modo Debug (logs detalhados)</label>
+                </div>
+
+                <div class="form-group">
+                  <label for="excludePatternsTextarea">URLs a Ignorar (uma por linha):</label>
+                  <textarea id="excludePatternsTextarea" aria-label="Digite URLs para ignorar no monitoramento"
+                    placeholder="youtube.com&#10;twitch.tv&#10;netflix.com&#10;spotify.com&#10;instagram.com"
+                    style="height: 80px"></textarea>
+                  <small style="color: var(--cor-texto-secundario); font-size: 0.8em">
+                    Sites de entretenimento que podem gerar alertas falsos
+                  </small>
+                </div>
+
+                <div class="form-group">
+                  <label for="maxCacheSizeInput">Tamanho Máximo do Cache:</label>
+                  <input type="number" id="maxCacheSizeInput" min="10" max="1000" value="100" style="width: 100px"
+                    aria-label="Definir tamanho máximo do cache" />
+                  <small style="color: var(--cor-texto-secundario); font-size: 0.8em; margin-left: 8px;">
+                    entradas (10-1000)
+                  </small>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                  <button type="button" id="resetMonitorSettingsButton"
+                    style="background: #ff6b6b; flex: 1; min-width: 120px"
+                    aria-label="Resetar configurações para padrão">
+                    Resetar Padrões
+                  </button>
+                  <button type="button" id="exportMonitorSettingsButton"
+                    style="background: #4ecdc4; flex: 1; min-width: 120px" aria-label="Exportar configurações">
+                    Exportar Config
+                  </button>
+                  <button type="button" id="viewMonitorStatsButton"
+                    style="background: #45b7d1; flex: 1; min-width: 120px" aria-label="Ver estatísticas do monitor">
+                    Ver Estatísticas
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="saveMonitorSettingsButton" aria-label="Salvar configurações do monitor">
+            💾 Salvar Configurações do Monitor
+          </button>
+
+          <div id="monitorSettingsStatus" class="status-message" role="status" aria-live="polite"></div>
+
+          <div role="note"
+            style="margin-top: 20px; padding: 15px; background: var(--cor-fundo-geral); border-radius: var(--raio-borda); border-left: 4px solid var(--cor-primaria);">
+            <h4 style="margin: 0 0 10px 0; color: var(--cor-primaria)">💡 Dicas de Uso</h4>
+            <ul style="margin: 0; padding-left: 20px; font-size: 0.85em; line-height: 1.5;">
+              <li><strong>Palavras-chave específicas:</strong> Use termos técnicos únicos para evitar alertas falsos
+              </li>
+              <li><strong>Intervalo adaptativo:</strong> Reduz automaticamente a frequência quando não há alertas</li>
+              <li><strong>URLs de exclusão:</strong> Ignore sites de entretenimento que podem causar alertas
+                desnecessários</li>
+              <li><strong>Modo debug:</strong> Ative para troubleshooting - desative para uso normal</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <!-- Aba Configurações -->
+      <section id="settings-tab" class="tab-content" role="tabpanel" aria-labelledby="settings-tab-title" tabindex="0"
+        hidden>
+        <header class="tab-header">
+          <h3 id="settings-tab-title">Configurações</h3>
+          <p class="tab-description">
+            Chaves de API, IA Gemini e Alertas Externos.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <h4>API Gemini</h4>
+
+          <div class="form-group">
+            <label for="geminiApiKey">Chave da API Gemini:</label>
+            <input type="password" id="geminiApiKey" placeholder="Cole sua chave da API aqui"
+              aria-label="Campo para chave da API Gemini" />
+          </div>
+
+          <div class="form-group">
+            <label for="geminiTemperature">Temperatura da IA (0.0 a 1.0):</label>
+            <input type="number" id="geminiTemperature" step="0.1" min="0" max="1" value="0.7"
+              aria-label="Ajustar temperatura da IA entre 0 e 1" />
+          </div>
+
+          <div class="form-group">
+            <label for="geminiCustomPrompt">Prompt Personalizado:</label>
+            <textarea id="geminiCustomPrompt" rows="4" aria-label="Campo para prompt personalizado da IA"></textarea>
+          </div>
+
+          <button id="saveSettingsButton" aria-label="Salvar configurações da IA Gemini">
+            Salvar Configurações da IA
+          </button>
+
+          <div id="settingsStatus" class="status-message" role="status" aria-live="polite"></div>
+        </article>
+
+        <article class="tool-interface">
+          <h4>Alertas Externos (Alert Server)</h4>
+
+          <div id="extAlertsConfigDetails">
+            <div class="form-group">
+              <label for="extAlertsApiKey">Chave de API (obrigatória):</label>
+              <input type="password" id="extAlertsApiKey" placeholder="Cole aqui a chave do servidor"
+                aria-label="Chave de API do Alert Server" />
+            </div>
+
+            <div class="form-group">
+              <label for="extAlertsInterval">Verificar a cada (minutos):</label>
+              <input type="number" id="extAlertsInterval" min="1" value="1"
+                aria-label="Intervalo de verificação em minutos" />
+            </div>
+
+            <div class="form-group" style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="extAlertsEnabled" style="width:auto;" />
+              <label for="extAlertsEnabled" style="margin:0;">Ativar busca automática de alertas</label>
+            </div>
+
+            <button id="extAlertsSaveButton" aria-label="Salvar configuração do Alert Server">
+              Salvar
+            </button>
+            <div id="extAlertsStatus" class="status-message" role="status" aria-live="polite"></div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Aba Alertas Externos (ABR Monitor / Email Monitor via Alert Server) -->
+      <section id="external-alerts-tab" class="tab-content" role="tabpanel" aria-labelledby="external-alerts-tab-title"
+        tabindex="0" hidden>
+        <header class="tab-header">
+          <h3 id="external-alerts-tab-title">Alertas Externos</h3>
+          <p class="tab-description">
+            Alertas recebidos remotamente (Alert Server). A chave e o intervalo ficam na aba Configurações.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <button id="extAlertsCheckNowButton" aria-label="Verificar alertas agora">
+            Verificar agora
+          </button>
+          <div id="extAlertsCheckStatus" class="status-message" role="status" aria-live="polite"></div>
+
+          <hr class="section-divider" aria-hidden="true" />
+
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <h4 style="margin:0;">Alertas recebidos</h4>
+            <button id="extAlertsMarkAllReadButton" style="width:auto; padding:6px 12px; font-size:0.85em;"
+              aria-label="Marcar todos como lidos">
+              Marcar todos como lidos
+            </button>
+          </div>
+
+          <div id="extAlertsList" style="margin-top:12px;">
+            <p role="note" style="font-size:0.85em; color: var(--cor-texto-secundario);">
+              Nenhum alerta carregado ainda.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Aba Sticky Notes -->
+      <section id="sticky-notes-tab" class="tab-content" role="tabpanel" aria-labelledby="sticky-notes-tab-title"
+        tabindex="0" hidden>
+        <header class="tab-header">
+          <h3 id="sticky-notes-tab-title">Sticky Notes</h3>
+          <p class="tab-description">
+            Cria notas adesivas flutuantes que ficam visíveis sobre qualquer página.
+            As notas são salvas automaticamente e persistem entre sessões.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <button id="openStickyNotesButton" aria-label="Abrir Sticky Notes na página">
+            📌 Abrir Sticky Notes
+          </button>
+
+          <div class="form-group" style="margin-top: 15px;">
+            <p role="note"
+              style="font-size: 0.85em; color: var(--cor-texto-secundario); margin: 10px 0; padding: 12px; background-color: var(--cor-fundo-geral); border-radius: 8px; border-left: 4px solid var(--cor-primaria);">
+              <strong>💡 Como usar:</strong> Clique no botão acima. Um widget flutuante aparecerá no canto da página
+              com suas notas. Você pode criar várias notas, escolher cores, arrastar o widget e minimizá-lo.
+              Todas as notas são salvas automaticamente.
+            </p>
+          </div>
+
+          <hr class="section-divider" aria-hidden="true" />
+
+          <h4>Funcionalidades</h4>
+          <ul
+            style="font-size: 0.85em; color: var(--cor-texto-secundario); line-height: 1.8; padding-left: 20px; margin-top: 12px;">
+            <li>📝 <strong>Múltiplas notas</strong> — Crie quantas notas precisar</li>
+            <li>🎨 <strong>6 cores</strong> — Organize por cor (amarelo, rosa, verde, azul, laranja, roxo)</li>
+            <li>💾 <strong>Salvo automaticamente</strong> — Notas persistem entre sessões</li>
+            <li>🖱️ <strong>Arrastável</strong> — Reposicione o widget onde quiser</li>
+            <li>🔽 <strong>Minimizável</strong> — Oculte quando não precisar</li>
+          </ul>
+        </article>
+      </section>
+
+      <!-- Aba Changelog -->
+      <section id="logs-tab" class="tab-content" role="tabpanel" aria-labelledby="logs-tab-title" tabindex="0" hidden>
+        <div class="creator-info-box" role="contentinfo">
+          <h3 class="tool-name">Ferramentas de Suporte NOC</h3>
+          <p class="creator-name-label">
+            Desenvolvido por: <span class="creator-name">EDINHO SILVA</span>
+          </p>
+          <p class="creator-version">VERSÃO 0.3.6</p>
+
+          <div class="social-links" role="navigation" aria-label="Links de redes sociais">
+            <a href="https://www.instagram.com/edinho_osilva/" target="_blank" rel="noopener noreferrer"
+              class="social-button" aria-label="Instagram do desenvolvedor">Instagram</a>
+            <a href="https://github.com/ebertonjs" target="_blank" rel="noopener noreferrer" class="social-button"
+              aria-label="GitHub do desenvolvedor">GitHub</a>
+            <a href="https://www.linkedin.com/in/eberton-silva-8a0b0590/" target="_blank" rel="noopener noreferrer"
+              class="social-button" aria-label="LinkedIn do desenvolvedor">LinkedIn</a>
+          </div>
+        </div>
+
+        <header class="tab-header">
+          <h3 id="logs-tab-title">Histórico de Versões (Changelog)</h3>
+          <p class="tab-description">
+            Confira aqui o histórico completo de atualizações, novas
+            funcionalidades, correções de bugs e melhorias implementadas em
+            cada versão da extensão.
+          </p>
+        </header>
+
+        <article class="tool-interface">
+          <pre id="logsOutput" role="log" aria-live="polite"
+            aria-label="Histórico de alterações">Carregando logs...</pre>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <!-- Script carregado com defer para otimização -->
+  <script src="popup.js" defer></script>
+  <script src="popup-alert-server.js" defer></script>
+</body>
+
+</html>

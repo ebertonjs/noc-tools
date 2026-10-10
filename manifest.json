@@ -1,0 +1,37 @@
+{
+   "action": {
+      "default_popup": "popup.html"
+   },
+   "background": {
+      "service_worker": "background/service-worker.js"
+   },
+   "description": "Extrator de Chamados , Analisador de Log de OLT e Sugestões de IA.",
+   "host_permissions": [
+      "<all_urls>",
+      "https://generativelanguage.googleapis.com/*",
+      "https://api.ipify.org/*",
+      "https://api64.ipify.org/*",
+      "http://ip-api.com/*",
+      "https://noctoolsalerta.duckdns.org:8788/*"
+   ],
+   "icons": {
+      "128": "icons/128x128.png",
+      "16": "icons/16x16.png",
+      "32": "icons/32x32.png",
+      "48": "icons/48x48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoLINIbWSuqwl2qwAD2gJWK813OShlVCqzyE0T2nvf/+Hwvzbkb+oBdB5++yPflISCRy2GtSXumUUAGz0uJpTXY4jN4O3Wbr0sHfRWSYve0JG7bbrECDGrnHuEke3wiQo9UwjktHcklBmhQwAGn+P0Ag9/2aSmL5l6BbFFvW9LNY9bYPAh5WZ2Gc3r+HV9ajoSjsgc5ysVnGyPoDGeiiOVx+OqT7JsYigAhZvq59Q73/67kVxLHFo698pz2r50CPLPwjJpk/dAALU6IHBSVocRLHh95RzRAi7AH20ap/pzRHBnZV5qOyqSfB81YC/BvSKVWizWxAIwSgerPQIBxfsFQIDAQAB",
+   "manifest_version": 3,
+   "name": "NOC TOOLS",
+   "permissions": [
+      "tabs",
+      "scripting",
+      "storage",
+      "contextMenus",
+      "unlimitedStorage",
+      "alarms",
+      "notifications"
+   ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.3.7"
+}

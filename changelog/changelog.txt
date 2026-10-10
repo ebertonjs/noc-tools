@@ -1,0 +1,557 @@
+Changelog - Extensão (Versão Atual: 0.3.7)
+Atualizado em: 09/10/2026
+
+
+==================================================
+VERSÃO 0.3.7 (09/10/2026) - NOVO VISUAL, DESEMPENHO E SEGURANÇA
+==================================================
+
+VISUAL:
+
+- Novo tema Eco (padrão) e Eco Escuro.
+- Janelas e avisos nas páginas seguem o tema escolhido.
+- Visual unificado em todas as ferramentas.
+
+DESEMPENHO:
+
+- Relatório HubSoft até 6x mais rápido.
+- Verificador de IP e popup mais leves.
+
+SEGURANÇA:
+
+- Resposta da IA e Extrator de Alertas protegidos contra código malicioso.
+- Chave do Gemini não aparece mais na URL nem nos logs.
+
+CORREÇÕES:
+
+- IA não acusa mais "chave não configurada" por engano.
+- Verificador de IP sem falsos positivos no Spamhaus.
+- Alertas Externos sem perda de alertas e sem bloqueio ao marcar todos como lidos.
+
+
+==================================================
+VERSÃO 0.3.6 (19/09/2026) - ALERTAS EXTERNOS: CHAVE OBRIGATÓRIA
+==================================================
+
+ALERTAS EXTERNOS - SEGURANÇA:
+
+- É preciso ter uma Chave de API para receber os alertas externos. Sem a chave, ou com chave incorreta, nenhum alerta é entregue.
+- Configure a chave na aba Configurações, em Alertas Externos. A mesma chave deve estar definida no servidor.
+- Sem chave válida, a lista de alertas guardada localmente é limpa e nada é exibido.
+- Mensagens de erro mais claras: chave não configurada, chave inválida (401) e excesso de tentativas (429).
+
+ALERTAS EXTERNOS - CONFIGURAÇÕES:
+
+- Chave de API, intervalo de verificação e ativação da busca automática movidos para a aba Configurações.
+- Corrigido: alterar o intervalo ou ativar/desativar a busca agora reagenda a verificação na hora, sem precisar reiniciar o Chrome.
+
+ALERTAS EXTERNOS - AVISOS:
+
+- O aviso na página fica parado até o mouse passar por cima; só então começa a contagem de 8 segundos para sumir.
+- O limite de avisos na tela subiu de 2 para 5, para não descartar alertas ainda não vistos.
+- A notificação do Chrome agora permanece até ser fechada ou clicada.
+
+
+==================================================
+VERSÃO 0.3.5 (08/09/2026) - CORREÇÕES DE SEGURANÇA
+==================================================
+
+ALERTAS EXTERNOS - SEGURANÇA:
+
+
+- Corrigida vulnerabilidade de XSS no Extrator de Alertas: 
+- Servidor de Alertas Externos passou a usar HTTPS
+- API Key do Servidor de Alertas movida de armazenamento sincronizado
+
+MANIFESTO - LIMPEZA:
+
+- Atualizado host_permissions do Servidor de Alertas para o endereço HTTPS.
+- Removida entrada órfã em web_accessible_resources que apontava para um arquivo inexistente.
+
+AVISO DE ATUALIZAÇÃO:
+
+- O aviso de "Novidades da Versão" não aparece mais dentro do popup da extensão
+EXTRATOR DE ALERTAS:
+
+- Corrigido agrupamento .
+- Corrigida extração .
+- Trocada a ordem das colunas .
+
+
+==================================================
+VERSÃO 0.3.4 (08/08/2026)
+==================================================
+
+
+ALERTAS EXTERNOS - CORREÇÕES E MELHORIAS:
+
+- Corrigida extração dos dados de alertas de BA 
+- Corrigida extração de alertas de e-mail
+- Adicionado suporte a alertas do Grafana 
+
+MANIFESTO - LIMPEZA DE PERMISSÕES:
+
+- Removida a permissão "activeTab" (redundante, já coberta por host_permissions).
+- Removido "optional_host_permissions" (<all_urls> duplicado, sem efeito prático).
+
+
+==================================================
+VERSÃO 0.3.3 (04/08/2026)
+==================================================
+
+
+ALERTAS EXTERNOS  E NOTIFICAÇÕES ⚠️EM TESTES⚠️:
+
+- Sistema de alertas externos .
+- Notificação nativa do Windows ao chegar alerta novo, permanece na tela até o usuário fechar (não some sozinha).
+- Aviso visual dentro da própria página aberta (canto inferior direito, estilo card fixo), também sem fechamento automático.
+- ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+
+==================================================
+VERSÃO 0.3.2 (24/06/2026)
+==================================================
+
+
+NOVA FERRAMENTA STICKY NOTES - NOTAS INDEPENDENTES:
+
+- Sistema de Anotações Flutuantes: Permite criar múltiplas notas adesivas independentes diretamente sobre qualquer página aberta.
+- Persistência Automática: Conteúdo, posição e cor das notas são armazenados localmente e restaurados automaticamente após recarregamentos ou reinicialização do navegador.
+- Gerenciamento Simplificado: Barra de controle dedicada com ações para criar novas notas e ocultar todas simultaneamente.
+
+FERRAMENTAS DESATIVADAS:
+
+- Extrator Jira: Temporariamente desativado para reformulação e melhorias.
+- Relatório de Rotas: Temporariamente desativado para revisão e ajustes internos.
+
+
+
+
+==================================================
+VERSÃO 0.3.1 (14/04/2026)
+==================================================
+
+NOVA FERRAMENTA: EXTRATOR DE CHAMADOS (HUBSOFT):
+
+- Captura Inteligente: Identificação automática dos chamados exibidos na página.
+- Extração de Descrição: Coleta do resumo e das informações relevantes de cada chamado.
+- Organização por Categoria: Chamados são automaticamente agrupados por status (Em Tratativa, Pendente Cliente, Validação, etc.).
+- Geração de Relatório Automatizado: Formatação pronta para compartilhamento com:
+  - Total de chamados
+  - Separação por categoria
+  - Dados enriquecidos (usuário + descrição)
+
+BENEFÍCIOS:
+- Automação Total: Elimina necessidade de copiar manualmente chamados do HubSoft.
+- Maior Produtividade: Reduz drasticamente o tempo de geração de relatórios NOC.
+- Robustez: Funciona mesmo com variações de layout da página.
+- Padronização: Relatórios consistentes e prontos para envio.
+CORREÇÕES CRÍTICAS - SISTEMA DE TEMAS:
+
+- Adicionado listener para botões de tema visual: Os botões de tema (theme-card) agora respondem corretamente a cliques.
+- Persistência de Tema: A preferência de tema é salva e restaurada automaticamente entre sessões.
+- Suporte Completo a 10 Temas: Todos os temas (Moderno, Escuro, Clássico, Hacker, Blueprint, 8-Bit, Zen, Jornal, Gemini, Neutro) agora funcionam corretamente.
+
+
+==================================================
+VERSÃO 0.2.9 (09/02/2026)
+==================================================
+
+REFORMULAÇÃO VISUAL DOS RELATÓRIOS:
+
+GERADOR DE RELATÓRIO DE FALHAS (ROTAS):
+- Novo Formato Hierárquico: Relatório reorganizado com foco em legibilidade, exibindo primeiro o status geral de todas as rotas (com ícones ✅/⚠️) seguido pelos detalhes das falhas.
+- Separação Visual Clara: Rotas operacionais e com falhas agora têm indicadores visuais distintos na listagem inicial, facilitando a identificação rápida de problemas.
+- Estrutura de Árvore: Detalhes das falhas agora utilizam caracteres de árvore (├─ └─) para melhor hierarquia visual das informações.
+- Informações Condensadas: Dados de ticket (número, responsável, data) agrupados em uma única linha separada por pipe (|) para economia de espaço.
+- Rodapé Simplificado: Status de Menor Capacidade e ABR Registrada exibidos de forma compacta no final do relatório.
+
+EXTRATOR DE CHAMADOS (JIRA):
+- Layout Modernizado: Cabeçalho reformulado com informações do responsável e data/hora em linha única com separadores visuais (|).
+- Contador Centralizado: Total de chamados e período exibidos em formato destacado com emoji 📦.
+- Organização por Categoria: Mantido agrupamento por tipo (Indisponibilidade, Qualidade, Email, etc.) com ícones coloridos (🔴 🟡 📧 🔵 🟣 🟢).
+- Formatação em Bullet Points: Cada chamado exibido com marcador (•) seguido de descrição e linha de metadados (ticket | criador | data | prioridade).
+- Prioridades com Ícones: Implementados ícones visuais para prioridade (🔥 High, ⚡ Medium, 🔵 Low).
+- Resumo de Categorias Vazias: Categorias sem chamados agrupadas em linha única no rodapé para referência rápida.
+
+BENEFÍCIOS:
+- Maior Clareza Visual: Hierarquia de informações mais evidente facilita a leitura e compreensão rápida dos relatórios.
+- Economia de Espaço: Informações condensadas reduzem o tamanho total do relatório sem perda de dados essenciais.
+- Padronização Profissional: Formato consistente e limpo adequado para compartilhamento em WhatsApp, Teams ou documentação.
+- Navegação Intuitiva: Estrutura em seções permite localização imediata de informações específicas.
+- Priorização Visual: Uso de ícones e emojis permite identificação instantânea de criticidade e tipos de problema.
+
+==================================================
+VERSÃO 0.2.8 (05/02/2026)
+==================================================
+
+MELHORIAS E CORREÇÕES  : GERADOR DE RELATÓRIO DE FALHAS (ROTAS ):
+ - ⚠️ PARA QUE O EXTRATOR FUNCIONE CORRETAMENTE ⚠️
+ - ⚠️ AS ROTAS PRECISAM ESTAR COM AS DESIGNAÇÕES CORRETAS SEM ABREVIAÇÕES .⚠️
+==================================================
+==================================================
+VERSÃO 0.2.7 (02/02/2026)
+==================================================
+
+MELHORIAS E CORREÇÕES  : GERADOR DE RELATÓRIO DE FALHAS (ROTAS ):
+
+==================================================
+VERSÃO 0.2.6 (02/02/2026)
+==================================================
+
+NOVA FERRAMENTA EM DESENVOLVIMENTO  : GERADOR DE RELATÓRIO DE FALHAS (ROTAS ):
+
+- Ferramenta responsável por analisar automaticamente chamados do Jira e gerar um relatório técnico padronizado de falhas, pronto para compartilhamento em WhatsApp ou Teams.
+
+==================================================
+
+MELHORIAS E CORREÇÕES  NO VERIFICADOR DE REPUTAÇÃO DE IP  :
+
+- Exibição do IP do Usuário
+- Detalhamento de Geolocalização do Usuário:
+- Padronização Visual do Modal 
+
+
+==================================================
+VERSÃO 0.2.5 (26/01/2026)
+==================================================
+
+MELHORIAS DE INTERFACE (UI/UX):
+
+- Nova Aba "Aparência": Criada uma aba dedicada exclusivamente à personalização visual da extensão, centralizando todas as opções de tema em um único local.
+- Seleção de Tema por Prévia Visual: Os temas agora são exibidos em formato de blocos (cards) com pré-visualização, permitindo identificar o estilo antes da aplicação.
+- Aplicação Instantânea de Tema: O tema é aplicado imediatamente ao clicar no bloco correspondente, sem necessidade de seletores tradicionais.
+- Sidebar Otimizada: Removidas opções de tema da barra lateral para reduzir poluição visual e eliminar barras de rolagem desnecessárias.
+ 
+==================================================
+VERSÃO 0.2.4 (21/01/2026)
+==================================================
+
+NOVA INTERFACE PARA ANALISADOR DE OLT:
+- Interface em Janela : O analisador de logs de OLT agora abre em uma janela flutuante na página ativa
+- Área de Trabalho Ampliada: Maior espaço para colar logs e visualizar resultados, com textarea redimensionável e área de resultado com scroll.
+
+MELHORIAS NO FORMATO DE SAÍDA DO OLT:
+- Agrupamento por Motivo: Os resultados agora são organizados automaticamente por tipo de falha (dying-gasp, LOSi/LOBi, etc).
+- Contador por Categoria: Cada grupo exibe a quantidade de dispositivos afetados 
+
+==================================================
+VERSÃO 0.2.3 (09/01/2026)
+==================================================
+
+CORREÇÕES CRÍTICAS NA IA:
+- Persistência da Chave API: Corrigido o erro grave que impedia a chave da API  de ser salva na memória do navegador. 
+
+==================================================
+VERSÃO 0.2.2 (07/01/2026) - ATUAL
+==================================================
+
+NOVO EXTRATOR DE ALERTAS  :
+- Interface Visual Renovada 
+- Agrupamento por POP: Os alertas agora são organizados automaticamente em blocos separados por POP/Concentrador.
+- Formatação em Colunas: Dados alinhados visualmente  para facilitar a leitura rápida.
+- Cópia Inteligente: Botões dedicados para copiar apenas os alertas de um POP específico ou todos de uma vez.
+- Filtro de Qualidade: O sistema ignora automaticamente linhas de alerta incompletas , exibindo apenas dados válidos.
+
+MELHORIAS GERAIS:
+- Notificação de Atualização: Implementado sistema  que avisa o usuário sobre novidades ao abrir a extensão.
+
+==================================================
+VERSÃO 0.2.1 (27/12/2025) -
+==================================================
+
+MELHORIAS NO EXTRATOR DE CHAMADOS (JIRA):
+- Refinamento da Descrição: Implementada limpeza avançada via Regex para remover códigos de identificação técnica (ex: padrões começando com "<>") do final dos títulos, garantindo um repasse mais limpo. 
+- Resumo por Criador: Adicionada contagem automática de tickets por colaborador no cabeçalho do relatório, facilitando a visualização da distribuição de demanda da equipe.
+- Organização Visual: Mantido o layout padrão de repasse com melhorias na legibilidade dos dados extraídos. 
+
+CORREÇÕES:
+- Otimização de Espaçamento: Ajuste nos delimitadores de categorias para evitar quebras de linha desnecessárias no relatório final.
+
+==================================================
+VERSÃO 0.2.0 (23/12/2025)
+==================================================
+
+ATUALIZAÇÃO DO MOTOR DE IA:
+- Raciocínio Multimodal Avançado: Otimização da análise de capturas de tela e logs de suporte, aproveitando a maior capacidade de processamento de imagem da série 3.
+
+CORREÇÕES:
+- Estabilidade de Chamada: Ajuste na construção da URL de requisição para garantir compatibilidade com as novas quotas de processamento.
+
+BENEFÍCIOS:
+- Respostas Instantâneas: Redução significativa no tempo de latência para a geração de sugestões de suporte.
+- Maior Precisão em Casos Complexos: Melhor compreensão de contextos técnicos e resoluções diretas para o cliente.
+- Infraestrutura Atualizada: Garante que a extensão utilize as funcionalidades mais modernas de IA disponíveis no mercado.
+
+==================================================
+VERSÃO 0.1.9 (03/10/2025)
+==================================================
+
+EXPANSÃO DO VERIFICADOR DE REPUTAÇÃO DE IP:
+
+- Novas Bases DNSBL: Adicionadas verificações em tempo real nas blacklists **Barracuda BRBL** e **DynaBlock**, aumentando a cobertura de detecção de spam e ameaças.
+- Detalhamento de IP Aprimorado: A verificação de Geolocalização agora inclui o **ASN (Autonomous System Number)** e o status de **Hosting/Data Center**, essencial para análise de risco em IPs de origem.
+- Usabilidade Aprimorada (Links Clicáveis): Os resultados de fontes externas (Spamhaus, AbuseIPDB, WHOIS/RDAP, BRBL, DynaBlock) agora são renderizados como **links HTML clicáveis** no relatório, permitindo acesso imediato para investigação.
+- Inclusão do WHOIS/RDAP: Adicionada consulta de registro de bloco WHOIS/RDAP para identificar o **Proprietário do Bloco** e o **Contato de Abuso**.
+
+
+MELHORIAS NO EXTRATOR DE CHAMADOS (JIRA) - FOCO EM ROBUSTEZ E DADOS:
+
+- Novo Mecanismo de Reinício: Adicionado botão "Reiniciar Extração" para limpar o cache e iniciar um novo ciclo sem recarregar a página, melhorando a usabilidade.
+- Filtro de Status para Ativos: Implementado o filtro  para garantir que apenas tickets **ativos** sejam incluídos no repasse, removendo "Done", "Resolved", "Fechado", etc.
+- Extração de Dados Críticos: Adicionada a extração explícita dos campos **Prioridade** e **SLA Status** para inclusão no repasse de turno.
+- Contador de Categorias em Tempo Real: Adicionado feedback visual na modal mostrando a contagem dinâmica de tickets por categoria.
+- Seletor de Período Flexível: Adicionado seletor de dias na interface, permitindo extrair tickets dos últimos 1 a 7 dias (padrão em 2 dias).
+
+CORREÇÕES:
+- Melhoria na Limpeza da Descrição: Refinamento na função para remover padrões comuns de números de chamados e tags do final do resumo do ticket.
+
+BENEFÍCIOS:
+- Qualidade de Dados Aprimorada: O repasse agora contém a informação vital de Prioridade/SLA.
+- Maior Usabilidade e Eficiência: O Debounce e a função de Reinício tornam a extração mais rápida e intuitiva.
+- Foco Operacional: Garante que apenas os problemas que precisam de atenção imediata (tickets ATIVOS) sejam reportados.
+==================================================
+VERSÃO 0.1.8 (01/10/2025)
+==================================================
+
+REMOÇÃO DE FUNCIONALIDADE:
+- Remoção do Monitor de Alertas: A funcionalidade de monitoramento de alertas foi descontinuada para otimizar o desempenho geral da extensão, reduzir o consumo de memória e simplificar a base de código, focando nas ferramentas principais.
+
+MELHORIAS NO VERIFICADOR DE REPUTAÇÃO DE IP (BLACKLIST):
+- Adicionadas Novas Ferramentas de Verificação: O verificador de reputação foi expandido com novas fontes de análise para aumentar a precisão e a cobertura na identificação de IPs maliciosos.
+==================================================
+VERSÃO 0.1.7 (17/09/2025)
+==================================================
+
+MELHORIAS NO EXTRATOR DE CHAMADOS (JIRA):
+- Finalização Automática Inteligente: A extração de chamados agora é finalizada automaticamente após um período de inatividade (sem rolagem na página), eliminando a necessidade de um botão manual.
+- Feedback Visual com Barra de Progresso: Implementada uma barra de progresso que é preenchida durante o período de inatividade, informando visualmente ao usuário que a extração está prestes a ser concluída.
+- Configuração de Tempo de Espera: Adicionada a variável `finalizationDelay` no código, permitindo ajustar facilmente o tempo de espera para a finalização automática (ex: de 2.5s para 5s).
+
+BENEFÍCIOS:
+- Experiência de Uso Aprimorada: O fluxo de extração se tornou mais fluido, intuitivo e com melhor comunicação visual, evitando que o usuário fique em dúvida sobre o status do processo.
+- Maior Automação: Reduz a interação manual necessária, tornando a ferramenta mais eficiente.
+
+==================================================
+VERSÃO 0.1.6 (15/09/2025)
+==================================================
+
+NOVA FERRAMENTA: VERIFICADOR DE REPUTAÇÃO DE IP:
+- Análise Multifonte Avançada: Integrada verificação de reputação de IP com 5 fontes de dados distintas para uma análise 360º.
+- Integração com Spamhaus ZEN: Adicionada verificação em tempo real na principal DNSBL do mercado, via consulta DoH, sem necessidade de chaves.
+- Link Direto para Investigação: Resultados da verificação do Spamhaus e AbuseIPDB incluem um link direto para a página de detalhes.
+- Reputação Colaborativa (AbuseIPDB): Incluído link para verificação na AbuseIPDB, uma das maiores bases de dados de abuso da comunidade.
+- Fontes Adicionais: Utiliza geolocalização (ip-api.com) e a lista de ameaças IPsum para enriquecer o relatório.
+- Orquestração Paralela: Todas as fontes são consultadas simultaneamente para máxima velocidade.
+
+CORREÇÕES:
+- Corrigido o formato da URL de consulta do Spamhaus para apontar para o endpoint correto (`/results?query=`), garantindo que o link de detalhes funcione.
+
+BENEFÍCIOS:
+- Análise de Segurança de Nível Profissional: Centraliza e automatiza o fluxo de trabalho de investigação de IPs suspeitos.
+- Decisões Mais Rápidas e Precisas: Correlação de dados de múltiplas fontes confiáveis para uma tomada de decisão mais segura.
+- Zero Configuração Adicional: Todas as novas fontes de dados funcionam sem a necessidade de chaves de API adicionais (além da Gemini já existente).
+
+==================================================
+VERSÃO 0.1.5 (14/09/2025)
+==================================================
+
+CORREÇÕES DE BUGS:
+- **Correção no Filtro de Data:** Resolvido o problema que impedia a extração de chamados recentes. Garantindo que apenas os tickets do dia atual e do dia anterior sejam capturados.
+
+
+==================================================
+VERSÃO 0.1.4 (13/09/2025)
+==================================================
+
+MELHORIAS NO EXTRATOR DE CHAMADOS (JIRA):
+- Otimização de Captura: O extrator foi reescrito garantindo a captura de todos os chamados do Jira.
+
+NOVA FUNCIONALIDADE DE INTERFACE (UI):
+- Janela de Extração Dedicada: Implementada uma nova janela flutuante, criada exclusivamente para a exibição e cópia dos repasses de chamados
+
+==================================================
+VERSÃO 0.1.3 (06/09/2025)
+==================================================
+
+OTIMIZAÇÕES NO RELATÓRIO DE CHAMADOS:
+- Identificação dinâmica do responsável (usuário logado no Jira)
+- Correção de seletor com uso de 'data-testid'
+
+MELHORIAS DE INTERFACE (ICÔNES):
+- Manifest.json atualizado com suporte a múltiplos tamanhos de ícones
+ATUALIZAÇÃO DE MENUS DE CONTEXTO:
+- Nome do menu atualizado de "Analisar e Sugerir" para "Analisar com IA"
+==================================================
+VERSÃO 0.1.2 (05/09/2025)
+==================================================
+
+MELHORIAS NA INTERFACE DA IA:
+- Janela de resultado redesenhada (estilo Card Flutuante)
+- Movimento livre da janela (drag-and-drop)
+- Redimensionamento dinâmico com limites inteligentes
+- Sistema de fixação com persistência entre sessões
+
+OTIMIZAÇÕES DE PERFORMANCE:
+- Monitor de Alertas v2.0 com cache inteligente
+- Processamento de abas em lotes de 3
+- Cache de conteúdo com expiração automática
+- Intervalos adaptativos de varredura
+- Uso de requestAnimationFrame() para animações suaves
+- Transições CSS desabilitadas durante movimentação
+- Prevenção de janela fora dos limites da tela
+
+CONFIGURAÇÕES AVANÇADAS:
+- Interface colapsável para configurações
+- Lista de URLs de exclusão (ex: YouTube, Twitch)
+- Modo Debug com logs detalhados
+- Monitoramento seletivo da aba ativa
+
+MELHORIAS DE INTERFACE:
+- Dashboard de status em tempo real
+- Botões de ação rápida (reset, exportar, estatísticas)
+- Validação visual de configurações
+- Tooltips e ajuda integrada
+
+FUNCIONALIDADES DE CONTROLE:
+- Botão de fixar/desafixar janela
+- Botão para centralizar a janela
+- Persistência local com localStorage
+- Indicadores visuais de ações (ícones)
+
+CORREÇÕES CRÍTICAS:
+- Corrigido erro HTTP 400 na API Gemini (nova URL)
+- Timeouts inteligentes nas requisições
+- Mensagens específicas para erros da API
+- Correção do erro “message port closed”
+
+MELHORIAS TÉCNICAS:
+- Limpeza automática de memória
+- Validação de API Keys com feedback visual
+- Compatibilidade com versões anteriores
+- Logging otimizado
+
+MELHORIAS DE UX:
+- Layout responsivo
+- Controles integrados e intuitivos
+- Feedback instantâneo para ações do usuário
+- Salvamento automático em movimentações quando fixado
+
+BENEFÍCIOS OPERACIONAIS:
+- Redução de 50-70% no uso de CPU
+- Economia de bateria
+- Interface intuitiva e profissional
+- Maior robustez contra falhas
+- Melhor experiência geral do usuário
+
+==================================================
+VERSÃO 0.1.1 (01/09/2025)
+==================================================
+
+FUNCIONALIDADES COM IA:
+- Análise de imagens via menu de contexto ("Analisar e Sugerir")
+- Suporte a processamento multimodal (texto + imagem com Gemini 2.5 Flash)
+
+MELHORIAS TÉCNICAS:
+- Conversão de imagens em chunks de 8KB
+- Prevenção contra múltiplas execuções simultâneas
+- Timeout de 30 segundos para download de imagens
+- Validação de tipo MIME e tamanho (limite de 10MB)
+
+MELHORIAS DE UX/UI:
+- Menu de contexto expandido (texto e imagens)
+- Mensagens de erro específicas por tipo
+- Manutenção de compatibilidade com análise de texto
+
+CORREÇÕES E OTIMIZAÇÕES:
+- Prevenção de menus duplicados
+- Limpeza de DOM em erros ou cancelamentos
+- Tratamento robusto para falhas de imagem
+
+==================================================
+VERSÃO 0.1.0 (30/08/2025)
+==================================================
+
+NOVAS FUNCIONALIDADES:
+- Suporte a logs de OLT ZTE (além de Huawei)
+- Integração com API Gemini para análise de logs
+- Suporte a delimitadores "PROBLEMA" e "PROBLEM"
+
+UX/UI:
+- Substituição de alerts nativos por Toast Notifications
+- Notificações com ícones e cores por tipo
+- Saída de log com datas e motivos detalhados
+
+MELHORIAS TÉCNICAS:
+- Parser duplo para Huawei e ZTE
+- Normalização de estados (ex: DyingGasp → offline)
+- Timeout de 15s para IA com uso de Promise.race
+
+BENEFÍCIOS:
+- Análise de logs universal (Huawei + ZTE)
+- Redução no tempo de diagnóstico
+- Interface moderna e não-intrusiva
+
+==================================================
+VERSÃO 0.0.6 (30/08/2025)
+==================================================
+
+MELHORIAS NO EXTRATOR DE CHAMADOS (JIRA):
+- Extração de criador, status e data de criação
+- Filtro automático: chamados dos últimos 2 dias
+- Remoção do campo "Responsável"
+- Suporte a múltiplos formatos de data
+- Fallbacks para diferentes layouts do Jira
+
+CORREÇÕES:
+- Compatibilidade com Jira Cloud, Server, Data Center
+- Seletores CSS mais precisos
+- Tratamento de erros para campos ausentes
+
+==================================================
+VERSÃO 0.0.5 (28/08/2025)
+==================================================
+
+NOVAS FUNCIONALIDADES:
+- Monitor de Alertas com lembretes personalizados
+- Notificações redesenhadas
+
+MELHORIAS:
+- Alertas aparecem na aba ativa
+- Aplicação imediata de configurações (sem recarregar)
+- Refatoração do background-ia.js
+- Exibição dinâmica da versão no popup
+- Correção do erro “Failed to fetch”
+
+==================================================
+VERSÃO 0.0.4 (25/08/2025)
+==================================================
+
+NOVAS FUNCIONALIDADES:
+- Suporte à IA (API Gemini) para geração de respostas
+- Menu de contexto com “Analisar e Sugerir”
+- Configuração de API Key, temperatura e prompt
+
+==================================================
+VERSÃO 0.0.3 (18/08/2025)
+==================================================
+
+MELHORIAS:
+- Interface otimizada para leitura de logs
+- Carregamento mais rápido das abas
+
+==================================================
+VERSÃO 0.0.2 (04/08/2025)
+==================================================
+
+NOVAS FUNCIONALIDADES:
+- Extrator e categorizador de alertas por palavras-chave
+- Suporte a múltiplos temas visuais:
+  (Moderno, Escuro, Clássico, Hacker, Blueprint, 8-Bit, Zen, Jornal)
+
+==================================================
+VERSÃO 0.0.1 (29/07/2025)
+==================================================
+
+FUNCIONALIDADES INICIAIS:
+- Extrator de chamados do Jira
+- Analisador de log de OLT (Huawei)
