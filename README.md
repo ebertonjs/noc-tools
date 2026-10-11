@@ -35,7 +35,7 @@ Extensão do Chrome (Manifest V3) com ferramentas para o dia a dia do NOC.
 
 ### Status das Rotas
 
-<img src="docs/images/status-das-rotas.png" alt="Status das Rotas" width="520">
+<img src="" alt="Status das Rotas" width="520">
 
 ### Alertas Externos na página
 
